@@ -200,9 +200,9 @@ namespace cs04_paskaita
             //Assignment12();
 
             //Assignment13();
-            Assignment14();
-            //Assignment15();
-            //Assignment16();
+            //Assignment14();
+            //Assignment15_HW();
+            Assignment16_HW();
         }
 
         public static void Assignment1()
@@ -484,14 +484,109 @@ namespace cs04_paskaita
             }
         }
 
-        public static void Assignment15()
+        public static void Assignment15_HW()
         {
+            // Sukurti vardų sąrašą ~5.Papildyti sąrašą
+            // 2 vardais „Napoleonas“, „ Asterisas “.
+            // Ištrinti trečią, vietoj „Napoleonas“ įterpti „Kleopatra“
+
+            var nameList = new List<string>() { "Marius", "Gedas", "Jonas", "Giedrius", "Edvinas" };
+            nameList.Add("Napaleonas");
+            nameList.Add("Asterisas");
+            foreach(var item in nameList) Console.Write($"{item}, ");
+
+            Console.WriteLine(""); // <-- catskiriu eilutes
+
+            nameList.Remove("Napaleonas");
+            nameList.Insert(5, "Kleopatra"); // <-- integeris nutaiko į list index'ą, stringu užpildo adresą
+            foreach (var item in nameList) Console.Write($"{item}, ");
 
         }
 
-        public static void Assignment16()
+        public static void Assignment16_HW()
         {
+            // Padaryti meniu tipo programą
+            // Parodomas pažymių sąrašas.
+            // Galimi veiksmai:
+            // 0 papildyti,
+            // 1 ištrinti,
+            // 2 įterpti,
+            // 3 parodyti pažymių vidurkį,
+            // 4 išeiti iš programos
+            
+            var randomNum = new Random();
+            var randomList = new List<int>();
+            Console.WriteLine("List size? Enter inger: ");
+            var lSize = int.Parse(Console.ReadLine());
+            // Generuoju random pažymių sąrašą;
+            for (int i = 0; i < lSize; i++)
+            {
+                randomList.Add(randomNum.Next(1, 10));
+            }
+            Console.WriteLine("Your randomized list: ");
+            foreach (var item in randomList) Console.Write($"{item}, ");
+            Console.WriteLine("");
 
+            bool loop = true;
+            while (loop)
+            {
+                Console.WriteLine("Current state of list: ");
+                foreach (var item in randomList) Console.Write($"{item}, ");
+                Console.WriteLine("");
+
+                Console.WriteLine("Menu: ");
+                Console.WriteLine("      0: add");
+                Console.WriteLine("      1: remove");
+                Console.WriteLine("      2: insert");
+                Console.WriteLine("      3: average");
+                Console.WriteLine("      4: exit");
+                Console.WriteLine();
+
+                switch (int.Parse(Console.ReadLine()))
+                {
+                    case 0:
+                        Console.WriteLine("Enter an integer: ");
+                        var input0 = int.Parse(Console.ReadLine());
+                        randomList.Add(input0);
+                        break;
+                  
+                    case 1:
+                        Console.WriteLine("Give index to remove int from list: ");
+                        var input1 = int.Parse(Console.ReadLine());
+                        randomList.RemoveAt(input1-1);
+                        Console.WriteLine("Do you want to add int into the same index? y/n");
+                        if(Console.ReadLine() == "y")
+                        {
+                            Console.WriteLine("enter int");
+                            randomList.Insert(input1 - 1, int.Parse(Console.ReadLine()));
+                        }
+                        else if (Console.ReadLine() == "n") break;
+                        break;
+                  
+                    case 2:
+                        //Console.WriteLine($"Last removed index was {input1}");
+                        foreach (var item in randomList) Console.Write($"{item}, ");
+                        Console.WriteLine("");
+                        Console.WriteLine("1st input target index, 2nd integer that is being inserted: ");
+                        randomList.Insert(int.Parse(Console.ReadLine()) - 1, int.Parse(Console.ReadLine()));
+                        break;
+
+                    case 3:
+                        foreach (var item in randomList) Console.Write($"{item}, ");
+                        Console.WriteLine("");
+                        var sum = 0;
+                        foreach (var item in randomList)
+                        {
+                            sum += item;
+                        }
+                        Console.WriteLine($"Average is {sum / randomList.Count}");
+                        break;
+
+                    case 4:
+                        loop = false;
+                        break;
+                }
+            }
         }
     }
 }
